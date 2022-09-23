@@ -8,6 +8,10 @@ contract Election {
         uint voteCount;
     }
 
+    event votedEvent (
+        uint indexed _candidateId
+    );
+
     // Read/write candidates
     mapping(uint => Candidate) public candidates;
     // Store accounts that have voted
@@ -36,5 +40,8 @@ contract Election {
         voters[msg.sender] = true;
         // update candidate vote Count
         candidates[_candidateId].voteCount ++;
+
+        // trigger voted event
+        emit votedEvent(_candidateId);
     }
 }
